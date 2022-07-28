@@ -1,7 +1,3 @@
-# Código baseado no artigo do Adrian Rosebrock
-# https://bit.ly/2CYC7Gf
-
-# importar pacotes necessários
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
@@ -22,7 +18,6 @@ EYE_AR_THRESH = 0.3
 EYE_AR_CONSEC_FRAMES = 40
 COUNTER = 0
 ALARM_ON = False
-
 
 def sound_alarm(path=ALARM):
     # play an alarm sound
@@ -57,17 +52,9 @@ predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # inicializar vídeo
 print("[INFO] inicializando streaming de vídeo...")
-#vs = VideoStream(src=WEBCAM).start()
 vs = VideoStream(src=WEBCAM, usePiCamera=False, resolution=(
     320, 240), framerate=32).start()
 time.sleep(1.0)
-
-# desenhar um objeto do tipo figure
-y = [None] * 100
-x = np.arange(0, 100)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-li, = ax.plot(x, y)
 
 # loop sobre os frames do vídeo
 while True:
@@ -97,21 +84,6 @@ while True:
         rightEyeHull = cv2.convexHull(rightEye)
         cv2.drawContours(frame, [leftEyeHull], -1, (0, 255, 0), 1)
         cv2.drawContours(frame, [rightEyeHull], -1, (0, 255, 0), 1)
-
-        # salvar historico para plot
-        y.pop(0)
-        y.append(ear)
-
-        # update canvas
-        plt.xlim([0, 100])
-        plt.ylim([0, 0.4])
-        ax.relim()
-        ax.autoscale_view(True, True, True)
-        fig.canvas.draw()
-        plt.show(block=False)
-        li.set_ydata(y)
-        fig.canvas.draw()
-        time.sleep(0.01)
 
         # checar ratio x threshold
         if ear < EYE_AR_THRESH:
