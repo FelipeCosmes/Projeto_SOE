@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 # definir constantes
 ALARM = "alarm.wav"
 WEBCAM = 0
-EYE_AR_THRESH = 0.3
+EYE_AR_THRESH = 0.27
 EYE_AR_CONSEC_FRAMES = 40
 COUNTER = 0
 ALARM_ON = False
