@@ -1,0 +1,6 @@
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/CMakeFiles/fastFaceLandmarkDetection.dir
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/CMakeFiles/edit_cache.dir
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/CMakeFiles/rebuild_cache.dir
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/dlib_build/CMakeFiles/dlib.dir
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/dlib_build/CMakeFiles/edit_cache.dir
+/home/felipe/Documentos/Sistemas Operacionais Embarcados/Projeto_SOE/Codigo cpp/build/dlib_build/CMakeFiles/rebuild_cache.dir
