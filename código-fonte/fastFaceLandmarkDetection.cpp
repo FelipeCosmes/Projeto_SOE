@@ -4,10 +4,16 @@
 #include<opencv2/imgproc.hpp>
 #include<opencv2/highgui.hpp>
 #include<iostream>
+#include <wiringPi.h>
 
 using namespace cv;
 using namespace std;
 using namespace dlib;
+
+#define threshold 0.23
+#define buzzer 0
+
+double EAR1, EAR2;
 
 //Desenhar linha
 void desenhalinha(cv::Mat &image, full_object_detection landmarks, int start, int end, bool isClosed=false){
@@ -57,27 +63,53 @@ void encontraLandmarks(Mat &frame, frontal_face_detector faceDetector, shape_pre
             //desenha as linhas sobre os landmarks
             desenhalinhas(frame, faceLandmark);
 
-            //cálculo das distancia euclidianas
+            //cálculo das distancia euclidianas para o olho esquerdo
 	        double P37_41_x = faceLandmark.part(37).x() - faceLandmark.part(41).x();
-            double P37_41_y=  faceLandmark.part(37).y() - faceLandmark.part(41).y() ;
-            double p37_41_sqrt=sqrt((P37_41_x * P37_41_x) + (P37_41_y * P37_41_y));
+            double P37_41_y = faceLandmark.part(37).y() - faceLandmark.part(41).y() ;
+            double p37_41_sqrt = sqrt((P37_41_x * P37_41_x) + (P37_41_y * P37_41_y));
 
             double P38_40_x = faceLandmark.part(38).x() - faceLandmark.part(40).x();
             double P38_40_y = faceLandmark.part(38).y() - faceLandmark.part(40).y();
-            double p38_40_sqrt=sqrt((P38_40_x * P38_40_x) + (P38_40_y * P38_40_y));
+            double p38_40_sqrt = sqrt((P38_40_x * P38_40_x) + (P38_40_y * P38_40_y));
 
             double P36_39_x = faceLandmark.part(36).x() - faceLandmark.part(39).x();
             double P36_39_y = faceLandmark.part(36).y() - faceLandmark.part(39).y();
-            double p36_39_sqrt=sqrt((P36_39_x * P36_39_x) + (P36_39_y * P36_39_y));
+            double p36_39_sqrt = sqrt((P36_39_x * P36_39_x) + (P36_39_y * P36_39_y));
 
             //Calculo do EAR
-            double EAR = (p37_41_sqrt +  p38_40_sqrt)/(2* p36_39_sqrt);
+            EAR1 = (p37_41_sqrt +  p38_40_sqrt)/(2* p36_39_sqrt);
+
+            //cálculo das distancias euclidianas para o olho direito
+            double P43_47_x = faceLandmark.part(43).x() - faceLandmark.part(47).x();
+            double P43_47_y = faceLandmark.part(43).y() - faceLandmark.part(47).y();
+            double p43_47_sqrt = sqrt((P43_47_x * P43_47_x) + (P43_47_y * P43_47_y));
+
+            double P44_48_x = faceLandmark.part(44).x() - faceLandmark.part(48).x();
+            double P44_48_y = faceLandmark.part(48).y() - faceLandmark.part(48).y();
+            double p44_48_sqrt = sqrt((P44_48_x * P44_48_x) + (P44_48_y * P44_48_y));
+
+            double P42_45_x = faceLandmark.part(42).x() - faceLandmark.part(45).x();
+            double P42_45_y = faceLandmark.part(42).y() - faceLandmark.part(45).y();
+            double p42_45_sqrt = sqrt((P42_45_x * P42_45_x) + (P42_45_y * P42_45_y));
+
+            //cálculo das distancias euclidianas para o olho direito
+            EAR2 = (p43_47_sqrt + p43_47_sqrt)/(2* p42_45_sqrt);
 
             cout << "EAR value =  " << EAR << endl;
         }
 }
 
 int main(){
+
+    //checar wiringPi
+    if(wiringPiSetup() == -1){
+        printf("wiringPi setup error\n");
+        return 1;
+    }
+
+    //definir o pino do buzzer como saida
+    pinMode(buzzer, OUTPUT);
+    digitalWrite(buzzer, LOW);
 
     //crie um objeto de captura de vídeo para mostrar o vídeo da webcam
     VideoCapture videoCapture(-1);
@@ -132,6 +164,18 @@ int main(){
         videoCapture >> frame;
 
         encontraLandmarks(frame, faceDetector, landmarkDetector, faces, resizeScale, skipFrames, frameCounter);
+
+        if(EAR1 < threshold && EAR2 < threshold){
+            //ligar alarme
+            digitalWrite(buzzer, HIGH);
+            delay(100);
+            digitalWrite(buzzer, LOW);
+            delay(100);
+        }
+        else {
+            //desliga alarme
+            digitalWrite(buzzer, LOW);
+        }
 
         String fpss;
         fpss = to_string(fps);
