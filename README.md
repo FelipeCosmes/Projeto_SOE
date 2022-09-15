@@ -24,6 +24,8 @@ O projeto desenvolvido visa avaliar o intervalo entre o nível do olho do condut
   <img src="https://github.com/FelipeCosmes/Projeto_SOE/blob/main/imagens/detection.png" alt="Teste" width="400"/>
 </p>
 
+Note que há o desenho dos olhos do usuário. Além disso, há o cálculo do EAR (Eye Aspect Ratio), essa informação que é responsável por determinar se o usuário está com os olhos fechados ou não.
+
 ### Como Rodar o Código C++
 
 * Vá até a pasta do código c++
