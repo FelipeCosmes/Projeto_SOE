@@ -10,7 +10,7 @@ Esse projeto tem por finalidade aplicar os conhecimentos de sistemas embarcados 
 - Compreender o processo de desenvolvimento de software para um sistema embarcado;
 - Conhecer as técnicas de desenvolvimento de aplicações e drivers para sistemas embarcados.
 
-### Explicação do projeto
+### Explicação do Projeto
 
 Sono e cansaço estão entre os principais motivos pelos quais acontecem acidentes nas estradas brasileiras. A probabilidade de uma sinistralidade acontecer é maior se o condutor dorme menos do que o período recomendado. Basta um momento de cansaço ou distração para que o pior aconteça. Cerca de 60% dos acidentes são causados por sono ou fadiga, o que mostra a seriedade do assunto. É por isso que, cada vez mais, as empresas e profissionais fazem uso do sensor de fadiga. Sendo assim, o sensor de fadiga é um importante instrumento que atua para identificar os comportamentos de risco e alertar o condutor em tempo real. Os alertas na cabine auxiliam os condutores a manterem o foco na estrada, reduzindo riscos e os conscientizando sobre a importância de uma condução segura.
 
@@ -20,8 +20,30 @@ O projeto desenvolvido visa avaliar o intervalo entre o level do olho do conduto
 
 ### Teste de Utilização
 
-
+<p align="center">
+  <img src="https://github.com/FelipeCosmes/Projeto_SOE/blob/main/imagens/detection.png" alt="Teste" width="400"/>
+</p>
 
 ### Como Rodar o Código C++
 
+* Vá até a pasta do código c++
+
+> cd Projeto_SOE/código-fonte/Codigo_cpp
+
+* Para compilar o código, basta executar o aquivo bash start.sh
+
+> ./start.sh
+
+* Após compilar, basta executar o programa criado
+
+> ./build/projeto_SOE
+
 ### Como Rodar o Código Python
+
+* Vá até a pasta do código em python
+
+> cd Projeto_SOE/código-fonte/Codigo_python
+
+* Para compilar o código, basta executar o seguinte comando
+
+> python3 detector_fadiga.py
