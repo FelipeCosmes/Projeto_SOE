@@ -36,7 +36,7 @@ Note que há o desenho dos olhos do usuário. Além disso, há o cálculo do EAR
 
 * Para compilar o código, basta executar o aquivo bash start.sh
 
-> `./start.sh`
+> `./build.sh`
 
 * Após compilar, basta executar o programa criado
 
